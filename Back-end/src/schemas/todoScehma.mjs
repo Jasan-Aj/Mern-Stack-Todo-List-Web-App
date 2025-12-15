@@ -8,8 +8,10 @@ const todoSchema = new mongoose.Schema({
     description: {
         type: mongoose.Schema.Types.String,
     },
-    Status: {
-        type: mongoose.Schema.Types.Boolean
+    status: {
+        type: mongoose.Schema.Types.Boolean,
+        required: true,
+        default: false
     }
 });
 
