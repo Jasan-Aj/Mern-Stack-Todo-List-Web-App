@@ -114,15 +114,20 @@ const App = () => {
         <div className='ml-5 mt-10'>
           <div className='flex justify-between pb-5 mr-40'>
             <p className='font-bold text-xl '>My Todoes</p>
-            {todoes && <button className='text-green-700 font-semibold'>Completed Todoes: </button>}
+            {todoes.length > 0 && <button className='text-green-700 font-semibold'>Completed Todoes</button>}
           </div>
           {success && <p>{success}</p>}
-          {error && <p>{error}</p>}
+          
           {todoes.length > 0 ? (
             <Todo todoes={todoes} deleteTodo={deleteTodo} updateStatus={updateStatus} />
           ) : (
             <div className="text-gray-500 text-center py-10">No todos yet. Add your first Todo!</div>)}
         </div>
+        {error && <p className='translate-y-145 translate-x-310 fixed transition-all duration-500 ease-in-out bg-gray-200
+         border-r-5 shadow font-semibold text-red-700 shadow-gray-600 w-max px-8 py-4 rounded-lg'>{error}</p>}
+
+        {success && <p className='translate-y-145 translate-x-310 fixed transition-all duration-500 ease-in-out bg-gray-200 
+        border-r-5 shadow font-semibold text-green-700 shadow-gray-600 w-max px-8 py-4 rounded-lg'>{success}</p>}
       </div>
      
     </div>
