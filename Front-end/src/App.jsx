@@ -114,7 +114,7 @@ const App = () => {
         <div className='ml-5 mt-10'>
           <div className='flex justify-between pb-5 mr-40'>
             <p className='font-bold text-xl '>My Todoes</p>
-            {todoes && <button className='text-green-700 font-semibold'>Completed Todoes</button>}
+            {todoes && <button className='text-green-700 font-semibold'>Completed Todoes: </button>}
           </div>
           {success && <p>{success}</p>}
           {error && <p>{error}</p>}
