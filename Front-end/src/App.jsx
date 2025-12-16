@@ -12,18 +12,20 @@ const App = () => {
 
   useEffect(() => {
     fetchTodos();
-    console.log("fetch todoes working")
   }, []);
 
-  const handleSucess = ()=>{
-    setSucess("sucess");
+  const handleSucess = (msg)=>{
+    setSucess(msg);
     setTimeout(()=>{
       setSucess("")
     },3000);
   }
 
-  const handleError = ()=>{
-    setError("failed");
+  const handleError = (msg)=>{
+    setError(msg);
+    setTimeout(()=>{
+      setError("")
+    },3000);
   }
 
   const fetchTodos = async()=>{
@@ -32,14 +34,13 @@ const App = () => {
       const fetchedTodos = await response.json();
       if(response.ok){
         setTodoes(fetchedTodos);
-        handleSucess();
       }
       else{
-        throw new Error("failed fetch");
+        throw new Error("");
       }
       
     }catch(err){
-      handleError();
+      handleError("Failed to fetch todoes");
     }
   }
 
@@ -55,12 +56,12 @@ const App = () => {
       });
       if(response.ok){
         fetchTodos();
-        handleSucess();
+        handleSucess("Sucessfully added!");
       }else{
-        throw new Error("Failed fetch");
+        throw new Error("");
       }
     }catch(err){
-      handleError();
+      handleError("Failed to add new todo");
     }
   }
 
@@ -68,22 +69,25 @@ const App = () => {
     try{
       const response = await fetch(baseUrl + "myTodoes/" + id,{
         method: 'DELETE',
-        header: {
+        headers: {
           'Content-Type' : 'application/json'
         }
       });
 
       if(response.ok){
-        handleSucess();
+        handleSucess("sucessfully Deleted!");
         fetchTodos();    
+      }
+      else{
+        throw new Error("Delete failed");
       }
     }
     catch(err){
-      handleError();
+      handleError("Failed to Delete this todo");
     }
   }
 
-  const updateStaus = async(id)=>{
+  const updateStatus = async(id)=>{
     try{
       const response = await fetch(baseUrl + "myTodoes/updateStatus/" + id,{
         method: 'PATCH',
@@ -92,27 +96,33 @@ const App = () => {
 
       if(response.ok){
         fetchTodos();
-        handleSucess();
+        handleSucess("Sucessfully updated!");
       }
 
     }catch(err){
-      handleError();
+      handleError("Failed to update this todo");
     }
   }
 
   return (
     <div>
       <Navbar/>
-      <div className='flex justify-center mt-20'>
-        <Form addTodo = {addnewtodo}/>
-      </div>
-      <div className='ml-5 mt-10'>
-        <div className='flex justify-center font-bold text-xl pb-5'>
-          <p>My Todoes</p>
+      <div className='grid grid-cols-2'>
+        <div className='flex justify-center h-screen  border-r-2 border-gray-300'>
+          <Form addTodo = {addnewtodo}/>
         </div>
-        {success && <p>Sucessfully added</p>}
-        {error && <p>There is an error</p>}
-        <Todo todoes = {todoes} deleteTodo ={deleteTodo} updateStaus = {updateStaus}/>
+        <div className='ml-5 mt-10'>
+          <div className='flex justify-between pb-5 mr-40'>
+            <p className='font-bold text-xl '>My Todoes</p>
+            {todoes && <button className='text-green-700 font-semibold'>Completed Todoes</button>}
+          </div>
+          {success && <p>{success}</p>}
+          {error && <p>{error}</p>}
+          {todoes.length > 0 ? (
+            <Todo todoes={todoes} deleteTodo={deleteTodo} updateStatus={updateStatus} />
+          ) : (
+            <div className="text-gray-500 text-center py-10">No todos yet. Add your first Todo!</div>)}
+        </div>
       </div>
      
     </div>

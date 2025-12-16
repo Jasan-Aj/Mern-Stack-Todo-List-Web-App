@@ -6,19 +6,15 @@ const Form = ({addTodo}) => {
 
   return (
     <div>
-      <form className='bg-blue-100  p-5 rounded-lg shadow-lg' onSubmit={(e)=> {
+      <form className='bg-blue-100 mt-20 flex gap-5 items-center  p-5 rounded-lg shadow-lg' onSubmit={(e)=> {
         e.preventDefault();
         addTodo(title, description);
+        setTitle("");
+        setdescription("");
       }}>
-          <div>
-            <label>ToDo: </label>
-            <input type="text" value={title} onChange={(e)=> setTitle(e.target.value)} className='bg-gray-100 border border-gray-400 rounded' />
-          </div>
-          <div className='mt-5'>
-            <label>Description: </label>
-            <input type="text" value={description} onChange={(e)=> setdescription(e.target.value)} className='bg-gray-100 border border-gray-400 rounded' />
-          </div>
-          <button type="submit" className='bg-red-400 text-white mt-6 px-3 rounded font-semibold py-1'>Add</button>
+          <input type="text" placeholder='  Title' value={title} onChange={(e)=> setTitle(e.target.value)} className='bg-gray-100 border border-gray-400 rounded h-10' />
+          <input type="text" placeholder='  Description' value={description} onChange={(e)=> setdescription(e.target.value)} className='bg-gray-100 border h-10 border-gray-400 rounded' />
+          <button type="submit" className='bg-gray-700 h-10 text-white cursor-pointer px-3 rounded font-semibold py-1'>Add</button>
       </form>
     </div>
   )
