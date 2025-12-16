@@ -9,7 +9,7 @@ const Todo = ({todoes, deleteTodo, updateStatus, showOption}) => {
                 
                 <div key={todo._id} className='bg-cyan-100 shadow shadow-blue-500 border-r-6 rounded-lg p-4 w-3/4 border-blue-500 mt-4'>
                     <div className='flex'>
-                        <p className='font-bold pr-4'>Title:</p>
+                        
                         <p className='font-semibold '>{todo.title}</p>
                     </div>
                     <div className='mt-1'>
