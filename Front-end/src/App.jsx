@@ -8,11 +8,16 @@ const App = () => {
   const [todoes, setTodoes] = useState([]);
   const [success, setSucess] = useState("");
   const [error, setError] = useState("");
+  const [showOption, setshowOption] = useState(false);
   const baseUrl = "http://localhost:3000/";
 
   useEffect(() => {
     fetchTodos();
   }, []);
+
+  const changeShowOption = ()=>{
+    setshowOption(!showOption);
+  }
 
   const handleSucess = (msg)=>{
     setSucess(msg);
@@ -114,12 +119,12 @@ const App = () => {
         <div className='ml-5 mt-10'>
           <div className='flex justify-between pb-5 mr-40'>
             <p className='font-bold text-xl '>My Todoes</p>
-            {todoes.length > 0 && <button className='text-green-700 font-semibold'>Completed Todoes</button>}
+            {todoes.length > 0 && <button onClick={()=> changeShowOption()} className='text-blue-700 font-semibold cursor-pointer'>
+              {showOption ? "Pending Todos" : "Completed Todos"}</button>}
           </div>
-          {success && <p>{success}</p>}
           
           {todoes.length > 0 ? (
-            <Todo todoes={todoes} deleteTodo={deleteTodo} updateStatus={updateStatus} />
+            <Todo todoes={todoes} showOption = {showOption} deleteTodo={deleteTodo} updateStatus={updateStatus} />
           ) : (
             <div className="text-gray-500 text-center py-10">No todos yet. Add your first Todo!</div>)}
         </div>
