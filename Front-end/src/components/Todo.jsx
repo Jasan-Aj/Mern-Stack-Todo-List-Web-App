@@ -1,0 +1,29 @@
+import React from 'react'
+
+const Todo = ({todoes, deleteTodo, updateStaus}) => {
+  return (
+    <div>
+        {
+            todoes.filter((todo)=> todo.status == false).map((todo)=>(
+                
+                <div key={todo._id} className='bg-cyan-100 border-2 rounded-lg p-4 w-3/4 border-red-500 mt-4'>
+                    <div className='flex'>
+                        <p className='font-bold pr-4'>Title:</p>
+                        <p className='font-semibold '>{todo.title}</p>
+                    </div>
+                    <div className='mt-1'>
+                        <p className='text-sm'>{todo.description}</p>
+                    </div>
+                    <div className='flex gap-4 mt-4'>
+                        <button className='bg-green-600 text-white px-3 py-1 rounded font-semibold' onClick={()=> updateStaus(todo._id)}>Done</button>
+                        <button className='bg-red-600 text-white px-3 py-1 rounded font-semibold' onClick={()=>deleteTodo(todo._id)}>Delete</button>
+                    </div>
+                </div> 
+            ))
+        }
+        
+    </div>
+  )
+}
+
+export default Todo
